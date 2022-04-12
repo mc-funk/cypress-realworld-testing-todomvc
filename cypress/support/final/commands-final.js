@@ -1,21 +1,21 @@
 Cypress.Commands.add('createDefaultTodos', () => {
-  const TODO_ITEM_ONE = 'Buy Milk'
-  const TODO_ITEM_TWO = 'Pay Rent'
-  const TODO_ITEM_THREE = 'Pickup Dry Cleaning'
+  const TODO_ITEM_1 = 'Buy Milk'
+  const TODO_ITEM_2 = 'Pay Rent'
+  const TODO_ITEM_3 = 'Pickup Dry Cleaning'
 
   let cmd = Cypress.log({
     name: 'create default todos',
     consoleProps () {
       return {
-        'Inserted Todos': [TODO_ITEM_ONE, TODO_ITEM_TWO, TODO_ITEM_THREE],
+        'Inserted Todos': [TODO_ITEM_1, TODO_ITEM_2, TODO_ITEM_3],
       }
     },
   })
 
   cy.get('.new-todo', { log: false })
-  .type(`${TODO_ITEM_ONE}{enter}`, { log: false })
-  .type(`${TODO_ITEM_TWO}{enter}`, { log: false })
-  .type(`${TODO_ITEM_THREE}{enter}`, { log: false })
+  .type(`${TODO_ITEM_1}{enter}`, { log: false })
+  .type(`${TODO_ITEM_2}{enter}`, { log: false })
+  .type(`${TODO_ITEM_3}{enter}`, { log: false })
 
   cy.get('.todo-list li', { log: false }).then((listItems) => {
     cmd.set({ el: listItems }).snapshot().end()
