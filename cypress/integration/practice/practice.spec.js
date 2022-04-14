@@ -69,17 +69,22 @@ describe('React TodoMVC practice', () => {
     cy.get('.editing').should('have.length', 1);
   })
 
-  it('should save edits on blur', () => {
+  it.only('should save edits on blur', () => {
     // Write a test that ensures that an edited todo is saved when it is blurred
     // Hint: You will need to use cy.blur()
     // https://docs.cypress.io/api/commands/blur
+    
     cy.get('.new-todo').type(`${TODO_ITEM_1}{enter}`)
     .type(`${TODO_ITEM_2}{enter}`);
     cy.get('.todo-list li').eq(0)
       .dblclick()
-      .find('.edit')
+      // .find('.edit')  -- without this, .blur() breaks, even though .type works just fine
       .type(' and stuff')
       .blur();
+      /* .blur()CypressError:  
+        cy.blur() can only be called on the focused element. Currently the focused element is 
+        a: <input class="edit" value="buy a Pony" data-reactid=".0.1.1.$827d631b-91cb-4d8d-832e-f33f0f52b17f.1">Learn more
+      */ 
     cy.get('.editing').should('not.exist');
     cy.get('.todo-list li').eq(0).find('label').should('contain', `${TODO_ITEM_1} and stuff`)
   })
